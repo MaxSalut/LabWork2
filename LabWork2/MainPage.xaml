@@ -1,0 +1,71 @@
+﻿       
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LabWork2.Views.MainPage"
+             Title="Робота з XML">
+
+    
+    <VerticalStackLayout Padding="20">
+        <!-- Панель дій -->
+        <Grid ColumnSpacing="10" Margin="10">
+            <!-- Adjust ColumnSpacing to control spacing between items -->
+            <Grid.ColumnDefinitions>
+                <!-- Define columns with equal width -->
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Picker in the first column -->
+            <Picker Grid.Column="0"
+                x:Name="AnalysisTypePicker"
+                Title="Тип аналізу">
+                <Picker.Items>
+                    <x:String>SAX API</x:String>
+                    <x:String>DOM API</x:String>
+                    <x:String>LINQ to XML</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <!-- Buttons in the next columns -->
+            <Button Grid.Column="1"
+                Text="Find"
+                Clicked="OnFindClicked" />
+
+            <Button Grid.Column="2"
+                Text="Clear"
+                Clicked="OnClearClicked" />
+
+            <Button Grid.Column="3"
+                Text="Трансформація в HTML"
+                Clicked="OnTransformToHtmlClicked" />
+        </Grid>
+        <!-- Фільтри для пошуку -->
+        <VerticalStackLayout>
+            <Grid RowSpacing="10">
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition Width="35" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <CheckBox Grid.Column="0" Grid.Row="0" IsChecked="False" />
+                <CheckBox Grid.Column="0" Grid.Row="1" IsChecked="False" />
+                <CheckBox Grid.Column="0" Grid.Row="2" IsChecked="False" />
+                <CheckBox Grid.Column="0" Grid.Row="3" IsChecked="False" />
+                <Entry Grid.Column="1" Grid.Row="0" x:Name="NameEntry" Placeholder="ПІБ" />
+                <Entry Grid.Column="1" Grid.Row="1" x:Name="FacultyEntry" Placeholder="Факультет" />
+                <Entry Grid.Column="1" Grid.Row="2" x:Name="CourseEntry" Placeholder="Курс" />
+                <Entry Grid.Column="1" Grid.Row="3" x:Name="DateEntry" Placeholder="Номер кімнати" />
+            </Grid>
+        </VerticalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>
