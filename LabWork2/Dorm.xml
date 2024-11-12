@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Dormitory>
+    <Student>
+        <FullName>Іваненко Іван Іванович</FullName>
+        <Faculty>Факультет інформаційних технологій</Faculty>
+        <Department>Кафедра програмного забезпечення</Department>
+        <Course>2</Course>
+        <Room>101</Room>
+        <Residence>
+            <CheckIn>2023-09-01</CheckIn>
+            <CheckOut>2024-06-30</CheckOut>
+        </Residence>
+    </Student>
+    <Student>
+        <FullName>Петренко Ольга Петрівна</FullName>
+        <Faculty>Факультет кібернетики</Faculty>
+        <Department>Кафедра інформаційних систем</Department>
+        <Course>3</Course>
+        <Room>102</Room>
+        <Residence>
+            <CheckIn>2023-09-01</CheckIn>
+            <CheckOut>2024-06-30</CheckOut>
+        </Residence>
+    </Student>
+    <Student>
+        <FullName>Сидоренко Андрій Андрійович</FullName>
+        <Faculty>Факультет комп'ютерних наук</Faculty>
+        <Department>Кафедра комп'ютерної інженерії</Department>
+        <Course>1</Course>
+        <Room>103</Room>
+        <Residence>
+            <CheckIn>2023-09-01</CheckIn>
+            <CheckOut>2024-06-30</CheckOut>
+        </Residence>
+    </Student>
+</Dormitory>
