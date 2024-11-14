@@ -1,11 +1,14 @@
 // FileSelectionPage.xaml.cs
-using Microsoft.Maui;
 using Microsoft.Maui.Controls;
+using System;
+using System.IO;
 
 namespace LabWork2.Views
 {
     public partial class FileSelectionPage : ContentPage
     {
+        public string SelectedFilePath { get; private set; }
+
         public FileSelectionPage()
         {
             InitializeComponent();
@@ -13,21 +16,20 @@ namespace LabWork2.Views
 
         private async void OnAddFileClicked(object sender, EventArgs e)
         {
-            var file = await FilePicker.Default.PickAsync();
-            if (file != null && file.FileName.EndsWith(".xml"))
+            // Виклик діалогу для вибору файлу
+            var result = await FilePicker.PickAsync(); // Використовуйте FilePicker для вибору файлу
+            if (result != null)
             {
-                FileStatusLabel.Text = $"Додано {file.FileName}";
-                NextButton.IsEnabled = true;
-            }
-            else
-            {
-                await DisplayAlert("Помилка", "Будь ласка, оберіть XML файл", "OK");
+                SelectedFilePath = result.FullPath; // Зберігаємо шлях до вибраного файлу
+                FileStatusLabel.Text = $"Вибраний файл: {Path.GetFileName(SelectedFilePath)}";
+                NextButton.IsEnabled = true; // Дозволяємо перехід до наступної сторінки
             }
         }
 
         private async void OnNextClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new MainPage());
+            // Переходимо до MainPage і передаємо шлях до файлу
+            await Navigation.PushAsync(new MainPage(SelectedFilePath));
         }
     }
 }
