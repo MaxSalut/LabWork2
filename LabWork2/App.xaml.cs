@@ -9,6 +9,7 @@ namespace LabWork2
         {
             InitializeComponent();
             MainPage = new NavigationPage(new Views.FileSelectionPage());
+
         }
 
         protected override Window CreateWindow(IActivationState activationState)

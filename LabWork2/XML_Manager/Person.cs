@@ -1,25 +1,22 @@
 ﻿// LabWork2/XML_Manager/Person.cs
 
+// LabWork2/XML_Manager/Person.cs
+
 namespace LabWork2.XML_Manager
 {
-    
     public class Person
     {
         public FullName Name { get; set; }
         public string Faculty { get; set; }
-        public string Chair { get; set; }
-        public string Role { get; set; }
-        public string Salary { get; set; }
-        public string TimeTenure { get; set; }
+        public string Course { get; set; }
+        public string Room { get; set; }
 
         public Person()
         {
             Name = new FullName();
             Faculty = string.Empty;
-            Chair = string.Empty;
-            Role = string.Empty;
-            Salary = string.Empty;
-            TimeTenure = string.Empty;
+            Course = string.Empty;
+            Room = string.Empty;
         }
 
         public class FullName
@@ -35,3 +32,4 @@ namespace LabWork2.XML_Manager
         }
     }
 }
+

@@ -102,18 +102,13 @@ namespace LabWork2.XML_Manager
                 case "Faculty":
                     _currentPerson.Faculty = value;
                     break;
-                case "Chair":
-                    _currentPerson.Chair = value;
+                case "Course":
+                    _currentPerson.Course = value;
                     break;
-                case "Role":
-                    _currentPerson.Role = value;
+                case "Room":
+                    _currentPerson.Room = value;
                     break;
-                case "Salary":
-                    _currentPerson.Salary = value;
-                    break;
-                case "TimeTenure":
-                    _currentPerson.TimeTenure = value;
-                    break;
+                
             }
         }
     }
