@@ -9,9 +9,6 @@ namespace LabWork2.Views
 {
     public partial class MainPage : ContentPage
     {
-        private List<Student> xmlData;
-        private XDocument xmlDoc;
-
         public MainPage()
         {
             InitializeComponent();

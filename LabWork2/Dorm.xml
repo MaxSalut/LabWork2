@@ -18,8 +18,8 @@
         <Course>3</Course>
         <Room>102</Room>
         <Residence>
-            <CheckIn>2023-09-01</CheckIn>
-            <CheckOut>2024-06-30</CheckOut>
+            <CheckIn>12/11/2022</CheckIn>
+            <CheckOut>12/11/2025</CheckOut>
         </Residence>
     </Student>
     <Student>
@@ -29,8 +29,8 @@
         <Course>1</Course>
         <Room>103</Room>
         <Residence>
-            <CheckIn>2023-09-01</CheckIn>
-            <CheckOut>2024-06-30</CheckOut>
+            <CheckIn>09/11/2022</CheckIn>
+            <CheckOut>09/11/2026</CheckOut>
         </Residence>
     </Student>
 </Dormitory>
