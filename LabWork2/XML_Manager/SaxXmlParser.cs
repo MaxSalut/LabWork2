@@ -1,6 +1,5 @@
 ﻿// LabWork2/XML_Manager/SaxXmlParser.cs
 
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,9 +7,6 @@ using System.Xml;
 
 namespace LabWork2.XML_Manager
 {
-    /// <summary>
-    /// Клас для парсингу XML за допомогою SAX
-    /// </summary>
     public class SaxXmlParser : IXmlParser
     {
         private readonly List<Person> _people;
@@ -22,15 +18,9 @@ namespace LabWork2.XML_Manager
             _people = new List<Person>();
         }
 
-        /// <summary>
-        /// Завантажує XML-документ з потоку, використовуючи SAX-парсинг
-        /// </summary>
-        /// <param name="inputStream">Вхідний потік XML</param>
-        /// <param name="settings">Налаштування XmlReader</param>
-        /// <returns>True, якщо завантаження успішне, інакше False</returns>
         public bool Load(Stream inputStream, XmlReaderSettings settings)
         {
-            _people.Clear(); // Очищення списку перед новим завантаженням
+            _people.Clear();
 
             try
             {
@@ -42,11 +32,11 @@ namespace LabWork2.XML_Manager
                         case XmlNodeType.Element:
                             if (reader.Name == "Person")
                             {
-                                _currentPerson = new Person(); // Створення нового об'єкта Person
+                                _currentPerson = new Person();
                             }
                             else if (_currentPerson != null)
                             {
-                                _currentElement = reader.Name; // Зберігаємо назву поточного елемента
+                                _currentElement = reader.Name;
                             }
                             break;
 
@@ -60,7 +50,7 @@ namespace LabWork2.XML_Manager
                         case XmlNodeType.EndElement:
                             if (reader.Name == "Person" && _currentPerson != null)
                             {
-                                _people.Add(_currentPerson); // Додаємо об'єкт Person до списку після закриття тега
+                                _people.Add(_currentPerson);
                                 _currentPerson = null;
                             }
                             _currentElement = null;
@@ -75,20 +65,11 @@ namespace LabWork2.XML_Manager
             }
         }
 
-        /// <summary>
-        /// Здійснює пошук у завантаженому документі за заданими фільтрами
-        /// </summary>
-        /// <param name="filters">Фільтри для пошуку</param>
-        /// <returns>Список об'єктів Person, що відповідають критеріям пошуку</returns>
         public IList<Person> Find(Filters filters)
         {
-            // Повертає список об'єктів, що відповідають критеріям фільтрації
             return _people.FindAll(person => filters.ValidatePerson(person));
         }
 
-        /// <summary>
-        /// Встановлює дані для поточного об'єкта Person на основі назви елемента
-        /// </summary>
         private void SetPersonData(string elementName, string value)
         {
             switch (elementName)
@@ -108,7 +89,12 @@ namespace LabWork2.XML_Manager
                 case "Room":
                     _currentPerson.Room = value;
                     break;
-                
+                case "CheckInDate":
+                    _currentPerson.CheckInDate = DateOnly.TryParse(value, out DateOnly checkIn) ? checkIn : (DateOnly?)null;
+                    break;
+                case "CheckOutDate":
+                    _currentPerson.CheckOutDate = DateOnly.TryParse(value, out DateOnly checkOut) ? checkOut : (DateOnly?)null;
+                    break;
             }
         }
     }

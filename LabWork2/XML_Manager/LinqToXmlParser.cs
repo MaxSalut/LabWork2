@@ -1,6 +1,5 @@
 ﻿// LabWork2/XML_Manager/LinqXmlParser.cs
 
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,9 +9,6 @@ using System.Xml.Linq;
 
 namespace LabWork2.XML_Manager
 {
-    /// <summary>
-    /// Клас для парсингу XML за допомогою LINQ to XML
-    /// </summary>
     public class LinqXmlParser : IXmlParser
     {
         private readonly List<Person> _people;
@@ -22,15 +18,9 @@ namespace LabWork2.XML_Manager
             _people = new List<Person>();
         }
 
-        /// <summary>
-        /// Завантажує XML-документ з потоку, використовуючи LINQ to XML
-        /// </summary>
-        /// <param name="inputStream">Вхідний потік XML</param>
-        /// <param name="settings">Налаштування XmlReader</param>
-        /// <returns>True, якщо завантаження успішне, інакше False</returns>
         public bool Load(Stream inputStream, XmlReaderSettings settings)
         {
-            _people.Clear(); // Очищення списку перед завантаженням нового документу
+            _people.Clear();
 
             try
             {
@@ -40,19 +30,19 @@ namespace LabWork2.XML_Manager
                 if (document.Root == null)
                     return false;
 
-                // Використовує LINQ для вибірки даних з XML та перетворення їх в об’єкти Person
-                var result = from person in document.Descendants("Person")
+                var result = from personNode in document.Descendants("Person")
                              select new Person
                              {
                                  Name = new Person.FullName
                                  {
-                                     FirstName = person.Element("Name")?.Element("FirstName")?.Value ?? "",
-                                     LastName = person.Element("Name")?.Element("LastName")?.Value ?? ""
+                                     FirstName = personNode.Element("Name")?.Element("FirstName")?.Value ?? "",
+                                     LastName = personNode.Element("Name")?.Element("LastName")?.Value ?? ""
                                  },
-                                 Faculty = person.Element("Faculty")?.Value ?? "",
-                                 Course = person.Element("Course")?.Value ?? "",
-                                 Room = person.Element("Room")?.Value ?? "",
-                        
+                                 Faculty = personNode.Element("Faculty")?.Value ?? "",
+                                 Course = personNode.Element("Course")?.Value ?? "",
+                                 Room = personNode.Element("Room")?.Value ?? "",
+                                 CheckInDate = DateOnly.TryParse(personNode.Element("CheckInDate")?.Value, out DateOnly checkIn) ? checkIn : (DateOnly?)null,
+                                 CheckOutDate = DateOnly.TryParse(personNode.Element("CheckOutDate")?.Value, out DateOnly checkOut) ? checkOut : (DateOnly?)null
                              };
 
                 _people.AddRange(result);
@@ -64,14 +54,8 @@ namespace LabWork2.XML_Manager
             }
         }
 
-        /// <summary>
-        /// Здійснює пошук у завантаженому документі за заданими фільтрами
-        /// </summary>
-        /// <param name="filters">Фільтри для пошуку</param>
-        /// <returns>Список об'єктів Person, що відповідають критеріям пошуку</returns>
         public IList<Person> Find(Filters filters)
         {
-            // Повертає список об'єктів, що відповідають критеріям фільтрації
             return _people.FindAll(person => filters.ValidatePerson(person));
         }
     }

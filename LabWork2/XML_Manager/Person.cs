@@ -10,8 +10,8 @@ namespace LabWork2.XML_Manager
         public string Faculty { get; set; }
         public string Course { get; set; }
         public string Room { get; set; }
-        public DateTime? CheckInDate { get; set; } // Дата заселення
-        public DateTime? CheckOutDate { get; set; } // Дата виселення
+        public DateOnly? CheckInDate { get; set; } // Дата заселення
+        public DateOnly? CheckOutDate { get; set; } // Дата виселення
 
         public Person()
         {

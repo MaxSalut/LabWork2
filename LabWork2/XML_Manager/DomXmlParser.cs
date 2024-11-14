@@ -4,13 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
-using System.Xml.Serialization;
 
 namespace LabWork2.XML_Manager
 {
-    /// <summary>
-    /// Клас для парсингу XML за допомогою DOM
-    /// </summary>
     public class DomXmlParser : IXmlParser
     {
         private readonly List<Person> _people;
@@ -20,15 +16,9 @@ namespace LabWork2.XML_Manager
             _people = new List<Person>();
         }
 
-        /// <summary>
-        /// Завантажує XML-документ з потоку, використовуючи DOM-парсинг
-        /// </summary>
-        /// <param name="inputStream">Вхідний потік XML</param>
-        /// <param name="settings">Налаштування XmlReader</param>
-        /// <returns>True, якщо завантаження успішне, інакше False</returns>
         public bool Load(Stream inputStream, XmlReaderSettings settings)
         {
-            _people.Clear(); // Очищення списку на випадок повторного завантаження
+            _people.Clear();
 
             var document = new XmlDocument();
             try
@@ -39,13 +29,27 @@ namespace LabWork2.XML_Manager
                 if (document.DocumentElement == null)
                     return false;
 
-                var serializer = new XmlSerializer(typeof(Person));
-                foreach (XmlNode childNode in document.DocumentElement.ChildNodes)
+                foreach (XmlNode personNode in document.DocumentElement.SelectNodes("Person"))
                 {
-                    if (serializer.Deserialize(new StringReader(childNode.OuterXml)) is Person person)
+                    var person = new Person
                     {
-                        _people.Add(person);
-                    }
+                        Name = new Person.FullName
+                        {
+                            FirstName = personNode.SelectSingleNode("Name/FirstName")?.InnerText ?? "",
+                            LastName = personNode.SelectSingleNode("Name/LastName")?.InnerText ?? ""
+                        },
+                        Faculty = personNode.SelectSingleNode("Faculty")?.InnerText ?? "",
+                        Course = personNode.SelectSingleNode("Course")?.InnerText ?? "",
+                        Room = personNode.SelectSingleNode("Room")?.InnerText ?? ""
+                    };
+
+                    // Парсинг дат
+                    DateOnly.TryParse(personNode.SelectSingleNode("CheckInDate")?.InnerText, out DateOnly checkInDate);
+                    DateOnly.TryParse(personNode.SelectSingleNode("CheckOutDate")?.InnerText, out DateOnly checkOutDate);
+                    person.CheckInDate = checkInDate != default ? checkInDate : (DateOnly?)null;
+                    person.CheckOutDate = checkOutDate != default ? checkOutDate : (DateOnly?)null;
+
+                    _people.Add(person);
                 }
                 return true;
             }
@@ -55,14 +59,8 @@ namespace LabWork2.XML_Manager
             }
         }
 
-        /// <summary>
-        /// Здійснює пошук у завантаженому документі за заданими фільтрами
-        /// </summary>
-        /// <param name="filters">Фільтри для пошуку</param>
-        /// <returns>Список об'єктів Person, що відповідають критеріям пошуку</returns>
         public IList<Person> Find(Filters filters)
         {
-            // Повертає список об'єктів, що відповідають критеріям фільтрації
             return _people.FindAll(person => filters.ValidatePerson(person));
         }
     }

@@ -4,6 +4,8 @@ using Microsoft.Maui.Controls;
 using System;
 using LabWork2.XML_Manager;
 using System.Xml;
+using System.Xml.Xsl;
+using System.Reflection;
 
 namespace LabWork2.Views
 {
@@ -66,8 +68,9 @@ namespace LabWork2.Views
                 Faculty = FacultyCheckBox.IsChecked == true ? FacultyEntry.Text : "",
                 Course = CourseCheckBox.IsChecked == true ? CourseEntry.Text : "",
                 Room = RoomCheckBox.IsChecked == true ? RoomEntry.Text : "" ,
-                CheckInDate = CheckInCheckBox.IsChecked == true ? CheckInEntry.Date : (DateTime?)null,
-                CheckOutDate = CheckOutCheckBox.IsChecked == true ? CheckOutEntry.Date : (DateTime?)null
+                CheckInDate = CheckInCheckBox.IsChecked == true ? DateOnly.FromDateTime(CheckInEntry.Date) : (DateOnly?)null,
+                CheckOutDate = CheckOutCheckBox.IsChecked == true ? DateOnly.FromDateTime(CheckOutEntry.Date) : (DateOnly?)null
+
             };
 
             // Виконання пошуку з використанням парсера
@@ -92,8 +95,40 @@ namespace LabWork2.Views
         }
         private async void OnTransformToHtmlClicked(object sender, EventArgs e)
         {
-            // тут має бути реалізація кнопки, тобто при її натисканні має виконуватися трансформація заданого xml файлу в FileSelectionPage.xaml.cs to HTML.
-            //Вхідні дані для аналізу та трансформації надаються у вигляді файлу - прикладу *.xml. Трансформація документу в HTML-код виконується на основі XSLдокумента *.xsl
+            try
+            {
+                // Створення XSL-трансформатора
+                var xslt = new XslCompiledTransform();
+
+                // Отримуємо шаблон як вбудований ресурс
+                using (Stream xslStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("LabWork2.Resources.template.xsl"))
+                {
+                    if (xslStream == null)
+                    {
+                        await DisplayAlert("Помилка", "Шаблон template.xsl не знайдено як ресурс.", "OK");
+                        return;
+                    }
+                    using (XmlReader reader = XmlReader.Create(xslStream))
+                    {
+                        xslt.Load(reader);
+                    }
+                }
+
+                string projectPath = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName;
+                string outputHtmlPath = Path.Combine(projectPath, "output.html");
+
+                // Виконання трансформації
+                using (var writer = new StreamWriter(outputHtmlPath))
+                {
+                    xslt.Transform(_filePath, null, writer);
+                }
+
+                await DisplayAlert("Успіх", $"HTML файл збережено в папці: {outputHtmlPath}", "OK");
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Помилка", $"Не вдалося виконати трансформацію: {ex.Message}", "OK");
+            }
         }
     }
 }
