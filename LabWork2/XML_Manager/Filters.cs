@@ -1,4 +1,6 @@
-﻿namespace LabWork2.XML_Manager
+﻿using System;
+
+namespace LabWork2.XML_Manager
 {
     public class Filters
     {
@@ -6,6 +8,8 @@
         public string Faculty { get; set; }
         public string Course { get; set; }
         public string Room { get; set; }
+        public DateTime? CheckInDate { get; set; } // Дата заселення
+        public DateTime? CheckOutDate { get; set; } // Дата виселення
 
         public Filters()
         {
@@ -13,6 +17,8 @@
             Faculty = string.Empty;
             Course = string.Empty;
             Room = string.Empty;
+            CheckInDate = null;
+            CheckOutDate = null;
         }
 
         public bool ValidatePerson(Person person)
@@ -26,7 +32,10 @@
             bool roomMatches = string.IsNullOrEmpty(Room) ||
                                person.Room.ToLower().Contains(Room.ToLower());
 
-            return nameMatches && facultyMatches && courseMatches && roomMatches;
+            bool checkInMatches = !CheckInDate.HasValue || person.CheckInDate == CheckInDate;
+            bool checkOutMatches = !CheckOutDate.HasValue || person.CheckOutDate == CheckOutDate;
+
+            return nameMatches && facultyMatches && courseMatches && roomMatches && checkInMatches && checkOutMatches;
         }
     }
 }

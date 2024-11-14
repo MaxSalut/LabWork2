@@ -10,6 +10,8 @@ namespace LabWork2.XML_Manager
         public string Faculty { get; set; }
         public string Course { get; set; }
         public string Room { get; set; }
+        public DateTime? CheckInDate { get; set; } // Дата заселення
+        public DateTime? CheckOutDate { get; set; } // Дата виселення
 
         public Person()
         {
@@ -17,6 +19,8 @@ namespace LabWork2.XML_Manager
             Faculty = string.Empty;
             Course = string.Empty;
             Room = string.Empty;
+            CheckInDate = null;
+            CheckOutDate = null;
         }
 
         public class FullName
@@ -24,10 +28,12 @@ namespace LabWork2.XML_Manager
             public string FirstName { get; set; }
             public string LastName { get; set; }
 
+
             public FullName()
             {
                 FirstName = string.Empty;
                 LastName = string.Empty;
+
             }
         }
     }

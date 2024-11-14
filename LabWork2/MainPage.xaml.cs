@@ -55,7 +55,7 @@ namespace LabWork2.Views
         {
             if (_currentParser == null)
             {
-                Console.WriteLine("Парсер не обрано.");
+                 await DisplayAlert("Помилка", "Парсер не обрано.", "OK");
                 return;
             }
 
@@ -65,7 +65,9 @@ namespace LabWork2.Views
                 Name = NameCheckBox.IsChecked == true ? NameEntry.Text : "",
                 Faculty = FacultyCheckBox.IsChecked == true ? FacultyEntry.Text : "",
                 Course = CourseCheckBox.IsChecked == true ? CourseEntry.Text : "",
-                Room = RoomCheckBox.IsChecked == true ? RoomEntry.Text : ""
+                Room = RoomCheckBox.IsChecked == true ? RoomEntry.Text : "" ,
+                CheckInDate = CheckInCheckBox.IsChecked == true ? CheckInEntry.Date : (DateTime?)null,
+                CheckOutDate = CheckOutCheckBox.IsChecked == true ? CheckOutEntry.Date : (DateTime?)null
             };
 
             // Виконання пошуку з використанням парсера
@@ -86,7 +88,7 @@ namespace LabWork2.Views
         private void OnClearClicked(object sender, EventArgs e)
         {
             //тут має відбуватися очистка всіх критеріїв пошуку
-            NameEntry.Text = FacultyEntry.Text = CourseEntry.Text = RoomEntry.Text = string.Empty;
+            NameEntry.Text = FacultyEntry.Text = CourseEntry.Text = RoomEntry.Text = string.Empty; CheckInEntry.Date = DateTime.Now; CheckOutEntry.Date = DateTime.Now;
         }
         private async void OnTransformToHtmlClicked(object sender, EventArgs e)
         {

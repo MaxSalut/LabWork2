@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Dormitory>
-	<Student>
+	<Person>
 		<Name>
 			<FirstName>Іван</FirstName>
 			<LastName>Іваненко</LastName>
@@ -8,8 +8,10 @@
 		<Faculty>Факультет інформаційних технологій</Faculty>
 		<Course>2</Course>
 		<Room>101</Room>
-	</Student>
-	<Student>
+		<CheckInDate>11.11.2021</CheckInDate>
+		<CheckOutDate>11.11.2024</CheckOutDate>
+	</Person>
+	<Person>
 		<Name>
 			<FirstName>Ольга</FirstName>
 			<LastName>Петренко</LastName>
@@ -17,14 +19,18 @@
 		<Faculty>Факультет кібернетики</Faculty>
 		<Course>3</Course>
 		<Room>102</Room>
-	</Student>
-	<Student>
+		<CheckInDate>11.11.2021</CheckInDate>
+		<CheckOutDate>11.11.2024</CheckOutDate>
+	</Person>
+	<Person>
 		<Name>
 			<FirstName>Андрій</FirstName>
 			<LastName>Сидоренко</LastName>
 		</Name>
 		<Faculty>Факультет комп'ютерних наук</Faculty>
 		<Course>1</Course>
-		<Room>103</Room>
-	</Student>
+		<Room>101</Room>
+		<CheckInDate>11.11.2021</CheckInDate>
+		<CheckOutDate>11.11.2024</CheckOutDate>
+	</Person>
 </Dormitory>

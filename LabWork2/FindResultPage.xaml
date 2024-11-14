@@ -12,14 +12,15 @@
         <CollectionView x:Name="ResultsCollectionView">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Padding="5">
+                    <Grid Padding="10"  >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-
+                       
                         <Label Text="{Binding Name.FirstName}" Grid.Column="0" />
                         <Label Text="{Binding Name.LastName}" Grid.Column="1" />
                         <Label Text="{Binding Faculty}" Grid.Column="2" />

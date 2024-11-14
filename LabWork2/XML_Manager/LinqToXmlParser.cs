@@ -50,7 +50,7 @@ namespace LabWork2.XML_Manager
                                      LastName = person.Element("Name")?.Element("LastName")?.Value ?? ""
                                  },
                                  Faculty = person.Element("Faculty")?.Value ?? "",
-                                 Course = person.Element("Cours")?.Value ?? "",
+                                 Course = person.Element("Course")?.Value ?? "",
                                  Room = person.Element("Room")?.Value ?? "",
                         
                              };
