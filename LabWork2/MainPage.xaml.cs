@@ -38,7 +38,9 @@ namespace LabWork2.Views
         }
         private async void OnTransformToHtmlClicked(object sender, EventArgs e)
         {
-            await DisplayAlert("Результат", "Виконано!", "OK");
+            XmlTransformer transformer = new XmlTransformer();
+          //  (results); // де results - це оброблені дані
+            DisplayAlert("Успіх", "Дані успішно перетворено в HTML!", "OK");
         }
 
 
