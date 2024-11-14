@@ -16,14 +16,14 @@
             </Grid.ColumnDefinitions>
 
             <!-- Picker in the first column -->
-            <Picker Grid.Column="0"
-                x:Name="AnalysisTypePicker"
-                Title="Тип аналізу">
-                <Picker.Items>
-                    <x:String>SAX API</x:String>
-                    <x:String>DOM API</x:String>
-                    <x:String>LINQ to XML</x:String>
-                </Picker.Items>
+            <Picker x:Name="ParserPicker" Title="Choose parser type" >
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>SAX</x:String>
+                        <x:String>DOM</x:String>
+                        <x:String>LINQ to XML</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
             </Picker>
 
             <!-- Buttons in the next columns -->
