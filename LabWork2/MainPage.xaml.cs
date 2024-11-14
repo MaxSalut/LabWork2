@@ -72,8 +72,15 @@ namespace LabWork2.Views
             IList<Person> results = _currentParser.Find(filters);
 
             // Перехід на сторінку з результатами, якщо знайдено хоча б один результат
-            await Navigation.PushAsync(new FindResultPage(results));
-            
+
+            if (results.Count > 0)
+            {
+                await Navigation.PushAsync(new FindResultPage(results));
+            }
+            else
+            {
+                await DisplayAlert("Результати пошуку", "Результатів не знайдено.", "OK");
+            }
         }
 
         private void OnClearClicked(object sender, EventArgs e)
